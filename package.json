@@ -1,0 +1,13 @@
+{
+  "name": "cnblogs-publisher",
+  "version": "1.0.0",
+  "description": "Manage CNBlogs articles via MetaWeblog API",
+  "main": "scripts/save_draft.py",
+  "scripts": {
+    "save": "python scripts/save_draft.py",
+    "list": "python scripts/list_drafts.py"
+  },
+  "keywords": ["cnblogs", "blog", "metaweblog", "publish"],
+  "author": "Tars",
+  "license": "MIT"
+}
