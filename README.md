@@ -140,15 +140,15 @@ cnblogs-publisher/
 
 ```bash
 # 添加到 ~/.zshrc 或 ~/.bash_profile
-export CNBLOGS_BLOG_URL="https://rpc.cnblogs.com/metaweblog/sueyyyy"
-export CNBLOGS_USERNAME="suyang320"
+export CNBLOGS_BLOG_URL="https://rpc.cnblogs.com/metaweblog/your-blog-name"
+export CNBLOGS_USERNAME="your-username"
 export CNBLOGS_TOKEN="your-metaweblog-token"
 ```
 
 #### 步骤 3：验证配置
 
 ```bash
-cd /Users/su/.openclaw/workspace/skills/cnblogs-publisher
+cd /path/to/cnblogs-publisher
 python scripts/get_blog_info.py
 ```
 
@@ -156,32 +156,90 @@ python scripts/get_blog_info.py
 
 | 参数 | 说明 | 示例 |
 |:---|:---|:---|
-| `CNBLOGS_BLOG_URL` | MetaWeblog API 地址 | `https://rpc.cnblogs.com/metaweblog/sueyyyy` |
-| `CNBLOGS_USERNAME` | 博客园登录名 | `suyang320` |
-| `CNBLOGS_TOKEN` | MetaWeblog 访问令牌 | `0398936...` |
+| `CNBLOGS_BLOG_URL` | MetaWeblog API 地址 | `https://rpc.cnblogs.com/metaweblog/your-blog-name` |
+| `CNBLOGS_USERNAME` | 博客园登录名 | `your-username` |
+| `CNBLOGS_TOKEN` | MetaWeblog 访问令牌 | `your-token` |
 
 ---
 
 ## 5. 使用指南
 
-### 5.1 快速开始
+### 5.1 快速开始（5分钟上手）
+
+#### 步骤 1：安装和配置（2分钟）
 
 ```bash
-# 进入 skill 目录
-cd /Users/su/.openclaw/workspace/skills/cnblogs-publisher
+# 1. 克隆仓库
+git clone https://github.com/your-username/cnblogs-publisher.git
+cd cnblogs-publisher
 
-# 1. 查看博客信息
+# 2. 获取博客园 MetaWeblog Token
+# 访问：https://i.cnblogs.com/settings#metaweblog
+# 开启 MetaWeblog 访问令牌并复制
+
+# 3. 配置环境变量
+export CNBLOGS_BLOG_URL="https://rpc.cnblogs.com/metaweblog/your-blog-name"
+export CNBLOGS_USERNAME="your-username"
+export CNBLOGS_TOKEN="your-metaweblog-token"
+
+# （可选）添加到 ~/.zshrc 或 ~/.bash_profile 永久生效
+echo 'export CNBLOGS_BLOG_URL="https://rpc.cnblogs.com/metaweblog/your-blog-name"' >> ~/.zshrc
+echo 'export CNBLOGS_USERNAME="your-username"' >> ~/.zshrc
+echo 'export CNBLOGS_TOKEN="your-metaweblog-token"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+#### 步骤 2：验证配置（1分钟）
+
+```bash
+# 测试连接
 python scripts/get_blog_info.py
 
-# 2. 创建测试文章
-echo "# 我的第一篇文章\n\nHello World!" > mypost.md
-
-# 3. 保存到草稿箱
-python scripts/save_draft.py "我的第一篇文章" "mypost.md" "随笔"
-
-# 4. 查看文章列表
-python scripts/list_drafts.py
+# 预期输出：
+# ✅ 成功！找到 1 个博客
+#    - Your Blog (ID: xxxxxx)
 ```
+
+#### 步骤 3：创建第一篇文章（2分钟）
+
+```bash
+# 1. 创建 Markdown 文章
+cat > myfirstpost.md << 'EOF'
+# 我的第一篇文章
+
+Hello，这是我的第一篇自动化发布的博客文章！
+
+## 关于这个工具
+
+这个工具可以帮助我：
+- 快速保存草稿
+- 批量管理文章
+- 自动化发布流程
+
+**太棒了！**
+EOF
+
+# 2. 保存到草稿箱
+python scripts/save_draft.py "我的第一篇文章" "myfirstpost.md" "随笔,工具"
+
+# 3. 复制输出的编辑链接，在浏览器中查看
+# 例如：https://i.cnblogs.com/posts/edit;postId=12345678
+
+# 4. 查看文章列表确认
+python scripts/list_drafts.py | head -10
+```
+
+#### 常用命令速查
+
+| 操作 | 命令 |
+|:---|:---|
+| 查看博客信息 | `python scripts/get_blog_info.py` |
+| 保存草稿 | `python scripts/save_draft.py "标题" "文件.md" "分类"` |
+| 查看列表 | `python scripts/list_drafts.py` |
+| 查看详情 | `python scripts/get_post.py <文章ID>` |
+| 更新文章 | `python scripts/update_draft.py <文章ID> "文件.md" "分类"` |
+| 发布文章 | `python scripts/publish.py <文章ID>` |
+| 删除文章 | `python scripts/delete_post.py <文章ID>` |
 
 ### 5.2 完整工作流程
 
@@ -332,24 +390,235 @@ post = {
 - **日期**：2025-03-14
 - **OpenClaw 版本**：2026.3.11
 - **Python 版本**：3.9
-- **博客**：Sue (https://www.cnblogs.com/sueyyyy/)
+- **博客**：示例博客 (https://www.cnblogs.com/example/)
 
-### 7.2 功能测试清单
+### 7.2 功能测试步骤
 
-| # | 功能 | 测试时间 | 结果 | 备注 |
+#### 测试前准备
+
+```bash
+# 1. 克隆仓库
+git clone https://github.com/your-username/cnblogs-publisher.git
+cd cnblogs-publisher
+
+# 2. 配置环境变量
+export CNBLOGS_BLOG_URL="https://rpc.cnblogs.com/metaweblog/your-blog-name"
+export CNBLOGS_USERNAME="your-username"
+export CNBLOGS_TOKEN="your-metaweblog-token"
+
+# 3. 验证配置
+python scripts/get_blog_info.py
+```
+
+#### 测试 1：获取博客信息
+
+**步骤：**
+```bash
+python scripts/get_blog_info.py
+```
+
+**预期输出：**
+```
+尝试连接: https://rpc.cnblogs.com/metaweblog/your-blog-name
+用户名: your-username
+令牌: **********...
+
+1. 尝试获取用户博客列表...
+   ✅ 成功！找到 1 个博客
+      - Your Blog Name (ID: 123456)
+        URL: https://www.cnblogs.com/your-blog/
+
+2. 尝试获取分类列表...
+   ✅ 成功！找到 XX 个分类
+```
+
+**验证点：**
+- [ ] 显示正确的博客名称
+- [ ] 显示正确的博客 ID
+- [ ] 显示分类列表
+
+#### 测试 2：保存草稿
+
+**步骤：**
+```bash
+# 创建测试文章
+cat > test_post.md << 'EOF'
+# 测试文章标题
+
+这是测试内容。
+
+## 二级标题
+
+- 列表项 1
+- 列表项 2
+EOF
+
+# 保存草稿
+python scripts/save_draft.py "测试文章标题" "test_post.md" "测试,OpenClaw"
+```
+
+**预期输出：**
+```
+正在保存文章: 测试文章标题
+✅ 草稿保存成功！
+   文章 ID: 12345678
+   标题: 测试文章标题
+   分类: 测试, OpenClaw
+
+   编辑链接: https://i.cnblogs.com/posts/edit;postId=12345678
+```
+
+**验证点：**
+- [ ] 返回文章 ID
+- [ ] 标题正确
+- [ ] 分类正确
+- [ ] 编辑链接可访问
+
+#### 测试 3：获取文章列表
+
+**步骤：**
+```bash
+python scripts/list_drafts.py | head -20
+```
+
+**预期输出：**
+```
+📋 最近 20 篇文章:
+
+📝 测试文章标题
+   ID: 12345678
+   时间: 20260314T22:03:00
+   分类: [随笔分类]测试, [随笔分类]OpenClaw
+   编辑: https://i.cnblogs.com/posts/edit;postId=12345678
+```
+
+**验证点：**
+- [ ] 列表包含刚创建的文章
+- [ ] ID 正确
+- [ ] 时间正确
+
+#### 测试 4：获取单篇文章
+
+**步骤：**
+```bash
+python scripts/get_post.py 12345678
+```
+
+**预期输出：**
+```
+正在获取文章 ID: 12345678
+
+📄 文章详情:
+   标题: 测试文章标题
+   ID: 12345678
+   链接: https://www.cnblogs.com/your-blog/p/12345678
+   分类: [随笔分类]测试, [随笔分类]OpenClaw
+
+   内容预览:
+   # 测试文章标题  这是测试内容。  ## 二级标题  - 列表项 1 - 列表项 2
+```
+
+**验证点：**
+- [ ] 标题正确
+- [ ] 内容预览正确
+- [ ] 链接可访问
+
+#### 测试 5：更新草稿
+
+**步骤：**
+```bash
+# 修改文章内容
+cat > test_post.md << 'EOF'
+# 测试文章标题（已更新）
+
+这是更新后的内容。
+
+## 新增章节
+
+这是新增的内容。
+EOF
+
+# 更新草稿
+python scripts/update_draft.py 12345678 test_post.md "测试,OpenClaw,已更新"
+```
+
+**预期输出：**
+```
+正在更新文章 ID: 12345678
+标题: 测试文章标题（已更新）
+✅ 草稿更新成功！
+   文章 ID: 12345678
+   编辑链接: https://i.cnblogs.com/posts/edit;postId=12345678
+```
+
+**验证点：**
+- [ ] 更新成功提示
+- [ ] 标题已更新
+- [ ] 内容已更新（通过编辑链接查看）
+
+#### 测试 6：发布文章
+
+⚠️ **注意：此操作将文章公开，请谨慎**
+
+**步骤：**
+```bash
+python scripts/publish.py 12345678
+```
+
+**预期输出：**
+```
+正在获取文章信息 ID: 12345678
+标题: 测试文章标题（已更新）
+正在发布文章...
+✅ 文章发布成功！
+   文章 ID: 12345678
+   标题: 测试文章标题（已更新）
+   访问链接: https://www.cnblogs.com/your-blog/p/12345678
+```
+
+**验证点：**
+- [ ] 发布成功
+- [ ] 访问链接可公开访问（无需登录）
+
+#### 测试 7：删除文章
+
+**步骤：**
+```bash
+python scripts/delete_post.py 12345678
+# 输入 yes 确认
+```
+
+**预期输出：**
+```
+正在获取文章信息 ID: 12345678
+标题: 测试文章标题（已更新）
+
+⚠️  确认删除文章 "测试文章标题（已更新）"? (yes/no): yes
+正在删除文章...
+✅ 文章删除成功！
+```
+
+**验证点：**
+- [ ] 删除前要求确认
+- [ ] 删除成功
+- [ ] 访问链接返回 404
+
+#### 测试汇总
+
+| # | 功能 | 命令 | 预期结果 | 状态 |
 |:---|:---|:---|:---|:---|
-| 1 | 获取博客信息 | 22:02 | ✅ 通过 | 显示博客 ID: 422078 |
-| 2 | 保存草稿 | 22:03 | ✅ 通过 | 创建文章 ID: 19718808 |
-| 3 | 获取文章列表 | 22:03 | ✅ 通过 | 列表包含新创建文章 |
-| 4 | 获取单篇文章 | 22:03 | ✅ 通过 | 内容预览正常 |
-| 5 | 更新草稿 | 22:04 | ✅ 通过 | 标题和内容已更新 |
-| 6 | 发布文章 | 22:04 | ✅ 通过 | 文章已公开访问 |
-| 7 | 删除文章 | 22:05 | ✅ 通过 | 文章已删除，404确认 |
+| 1 | 获取博客信息 | `get_blog_info.py` | 显示博客详情 | ⬜ |
+| 2 | 保存草稿 | `save_draft.py` | 返回文章 ID | ⬜ |
+| 3 | 获取文章列表 | `list_drafts.py` | 显示文章列表 | ⬜ |
+| 4 | 获取单篇文章 | `get_post.py` | 显示文章详情 | ⬜ |
+| 5 | 更新草稿 | `update_draft.py` | 更新成功 | ⬜ |
+| 6 | 发布文章 | `publish.py` | 文章公开 | ⬜ |
+| 7 | 删除文章 | `delete_post.py` | 文章删除 | ⬜ |
 
 ### 7.3 测试文章生命周期
 
 ```
-创建 (19718808) 
+创建 (12345678) 
     ↓
 更新（修改标题和内容）
     ↓
@@ -442,5 +711,4 @@ MIT License - 自由使用、修改和分发
 ---
 
 **文档版本**：v1.0.0  
-**最后更新**：2025-03-14  
-**作者**：Tars for Sue
+**最后更新**：2025-03-14
