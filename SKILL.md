@@ -1,3 +1,9 @@
+---
+name: cnblogs-publisher
+description: Manage CNBlogs articles via MetaWeblog API. Supports save drafts, publish, update, and delete posts.
+allowed-tools: Bash(python3:*), Bash(pip3:*)
+---
+
 # CNBlogs Publisher Skill
 
 通过 MetaWeblog API 管理博客园（CNBlogs）文章的 OpenClaw Skill

@@ -4,10 +4,9 @@
   "description": "Manage CNBlogs articles via MetaWeblog API",
   "main": "scripts/save_draft.py",
   "scripts": {
-    "save": "python scripts/save_draft.py",
-    "list": "python scripts/list_drafts.py"
+    "test": "echo 'Run tests manually'"
   },
-  "keywords": ["cnblogs", "blog", "metaweblog", "publish"],
-  "author": "Tars",
+  "keywords": ["cnblogs", "blog", "metaweblog"],
+  "author": "suversal",
   "license": "MIT"
 }
