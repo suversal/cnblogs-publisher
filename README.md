@@ -241,74 +241,7 @@ python scripts/list_drafts.py | head -10
 | 发布文章 | `python scripts/publish.py <文章ID>` |
 | 删除文章 | `python scripts/delete_post.py <文章ID>` |
 
-### 5.2 完整工作流程
-
-#### 5.2.1 场景一：撰写并发布新文章
-
-**完整步骤：**
-
-**步骤 1：创建文章文件**
-
-创建 `article.md`：
-
-````
-cat > article.md << 'EOF'
-# Spring Boot 入门教程
-
-## 简介
-Spring Boot 是一个简化 Spring 应用开发的框架...
-
-## 快速开始
-```bash
-spring init --dependencies=web myproject
-```
-EOF
-````
-
-**步骤 2：保存草稿**
-
-```bash
-python scripts/save_draft.py "Spring Boot 入门教程" "article.md" "Java,Spring"
-# 输出: 文章 ID: 12345678
-```
-
-**步骤 3：查看草稿确认**
-
-```bash
-python scripts/get_post.py 12345678
-```
-
-**步骤 4：（可选）修改后更新**
-
-```bash
-# 追加内容到文章
-echo "## 总结" >> article.md
-echo "" >> article.md
-echo "本文介绍了 Spring Boot 的核心概念..." >> article.md
-
-# 更新草稿
-python scripts/update_draft.py 12345678 article.md "Java,Spring,教程"
-```
-
-**步骤 5：发布文章**
-
-```bash
-python scripts/publish.py 12345678
-```
-
-#### 5.2.2 场景二：批量管理文章
-
-**查看和清理旧文章：**
-
-```bash
-# 获取最近 10 篇文章
-python scripts/list_drafts.py | head -30
-
-# 删除不需要的文章（会要求确认）
-python scripts/delete_post.py 12345678
-```
-
-### 5.3 命令详解
+### 5.2 命令详解
 
 #### `save_draft.py` - 保存草稿
 
